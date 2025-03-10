@@ -31,7 +31,7 @@ def display_stats(self):
                 player.dif *= 2  #player is not defined
             else:
                 print("Lost your chance!")
-        elif current_turn == "enemy":
+        elif current_turn == "Evil Wizard":
             print("Enemy turn!")
             print(f"Next turns are: {turns}")
             enemy_choice = random.randint(1, 2)
@@ -50,7 +50,65 @@ def display_stats(self):
         elif enemy.hp <= 0: #enemy is not defined
             print("YOU WON!")
             break
+
+        if not hasattr(enemy,'evadenextAttack'):
+            enemy.health -= damage
+            print(f"\n{self.name} attacks {enemy.name} for {damage} damage!")
+        elif hasattr(enemy,'evadeNextAttack') and enemy.evadeNextAttack == False:
+            enemy.health -= damage 
+            print(f"\n{self.name}attacks {enemy.name} but {enemy.name} evades the attack!")
+            enemy.evadeNextAttack = False
+
+    def combat(self, enemy):
+     
+        if super().combat(enemy):
+
+            class PassiveSkill(BasicSkill): Paladin
+    def __init__(self, Divine shield, skill_type='passive'): 
+        def damage(Paladin): random.randint= 40-100
+        super().__init__(Divine Shield, skill_type='passive')
+
+    class ActiveSkill(BasicSkill): Paladin
+    def __init__(self, Holy Strike, skill_dmg='active', skill_type='active'):
+            super().__init__(Holy Strike, skill_type='active', skill_dmg=200)
+
+            class PassiveSkill(BasicSkill): Archer
+    def __init__(self, Evade, skill_type='passive'): 
+            super().__init__(Evade, skill_type='passive')
+
+    class ActiveSkill(BasicSkill): Archer
+    def __init__(self, QuickShot, skill_dmg='active', skill_type='active'):
+            super().__init__(QuickShot, skill_type='active', skill_dmg=100)
+            
+    class player: Warrior, Mage, Archer, Paladin
+    def __init__(self, name, health=100):
+        self.name = name
+        self.health = health=random.randint
+
+    def introduce(self):
+      print(f"Hello, my name is {self.name} and I am level {self.level}")
+
+    def attack(self, target, damage):
+        print(f"{self.name} attacks {target.name} for {damage} damage!")
+        target.health -= damage
+        print(f"{target.name} health is now {target.health}")
         
+    class enemy: EvilWizard
+    def __init__(self, name, health, attack_power):
+        self.name = name
+        self.health = health=1000
+        self.attack_power = attack_power
+
+    def attack(self, target):
+        print(f"{self.name} attacks {target.name} for {self.attack_power} damage!")
+        target.health -= self.attack_power
+        if target.health <= 0:
+            print(f"{target.name} has been defeated!")
+        else:
+            print(f"{target.name} has {target.health} health remaining.")
+
+    def __str__(self):
+         return f"{self.name} (Health: {self.health}, Attack: {self.attack_power})"
 
 import random
 
@@ -58,7 +116,10 @@ def calculate_damage(min_damage, max_damage):
   """Calculates random damage between min and max values."""
   return random.randint(min_damage, max_damage)
 
-# Warrior class (inherits from Character)
+def attack(self, enemy):
+    damage = self.attack_power
+
+
 class Warrior(Character):
     def __init__(self, name):
         super().__init__(name, health=140, attack_power=25)
@@ -68,24 +129,27 @@ class Mage(Character):
     def __init__(self, name):
         super().__init__(name, health=100, attack_power=35)
 
-# EvilWizard class (inherits from Character)
+# EvilWizard 
 class EvilWizard(Character):
     def __init__(self, name):
-        super().__init__(name, health=150, attack_power=15)
+        super().__init__(name, health=150, attack_power=15) #lower attack power
 
     def regenerate(self):
         self.health += 5
         print(f"{self.name} regenerates 5 health! Current health: {self.health}")
 
-# Create Archer class
-class Mage(Character):
+# Create Archer class (inherits from Character)
+class Archer(Character):
     def __init__(self, name):
-        super().__init__(name, health=100, attack_power=60)
+        super().__init__(name, health=100, attack_power=16) # lower attack power
 
-# Create Paladin class 
+# Create Paladin class (inherits from Character)
 class Paladin(Character):
     def __init__(self, name):
-        super().__init__(name, health=150, attack_power=15)
+        super().__init__(name, health=150, attack_power=50) # boost attack power
+
+
+
 
 def create_character():
     print("Choose your character class:")
@@ -102,9 +166,9 @@ def create_character():
     elif class_choice == '2':
         return Mage(name)
     elif class_choice == '3':
-        pass  # Implement Archer class
+        return Archer(name)
     elif class_choice == '4':
-        pass  # Implement Paladin class
+        return Paladin(name) 
     else:
         print("Invalid choice. Defaulting to Warrior.")
         return Warrior(name)
@@ -120,13 +184,13 @@ def battle(player, wizard):
         choice = input("Choose an action: ")
 
         if choice == '1':
-            player.attack(wizard)
+            player.attack(EvilWizard)
         elif choice == '2':
-            pass  # Implement special abilities player.heal and player.special_attack
+            player.special_attack(EvilWizard)
         elif choice == '3':
-            pass  # Implement heal method
+            player.heal(EvilWizard)
         elif choice == '4':
-            player.display_stats()
+            player.display_stats(EvilWizard)
         else:
             print("Invalid choice. Try again.")
 
@@ -138,8 +202,10 @@ def battle(player, wizard):
             print(f"{player.name} has been defeated!")
             break
 
-    if wizard.health <= 0:
-        print(f"The wizard {wizard.name} has been defeated by {player.name}!")
+
+
+    if EvilWizard.health <= 0:
+        print(f"The wizard {EvilWizard.name} has been defeated by {EvilWizard.name}!")
 
 def main():
     player = create_character()
