@@ -17,6 +17,7 @@ class Character:
 
 def display_stats(self):
     print(f"{self.name}'s Stats - Health: {self.health}/{self.max_health}, Attack Power: {self.attack_power}")
+    damage = random.randint(1,30)
 
     turns=5
     for current_turn in turns:
@@ -58,32 +59,11 @@ def display_stats(self):
             enemy.health -= damage 
             print(f"\n{self.name}attacks {enemy.name} but {enemy.name} evades the attack!")
             enemy.evadeNextAttack = False
-
-    def combat(self, enemy):
-     
-        if super().combat(enemy):
-
-            class PassiveSkill(BasicSkill): Paladin
-    def __init__(self, Divine shield, skill_type='passive'): 
-        def damage(Paladin): random.randint= 40-100
-        super().__init__(Divine Shield, skill_type='passive')
-
-    class ActiveSkill(BasicSkill): Paladin
-    def __init__(self, Holy Strike, skill_dmg='active', skill_type='active'):
-            super().__init__(Holy Strike, skill_type='active', skill_dmg=200)
-
-            class PassiveSkill(BasicSkill): Archer
-    def __init__(self, Evade, skill_type='passive'): 
-            super().__init__(Evade, skill_type='passive')
-
-    class ActiveSkill(BasicSkill): Archer
-    def __init__(self, QuickShot, skill_dmg='active', skill_type='active'):
-            super().__init__(QuickShot, skill_type='active', skill_dmg=100)
             
     class player: Warrior, Mage, Archer, Paladin
     def __init__(self, name, health=100):
         self.name = name
-        self.health = health=random.randint
+        self.health = health=random.randint (1,40)
 
     def introduce(self):
       print(f"Hello, my name is {self.name} and I am level {self.level}")
@@ -115,6 +95,7 @@ import random
 def calculate_damage(min_damage, max_damage):
   """Calculates random damage between min and max values."""
   return random.randint(min_damage, max_damage)
+
 
 def attack(self, enemy):
     damage = self.attack_power
